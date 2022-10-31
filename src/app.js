@@ -4,33 +4,34 @@ import "./style.css";
 
 import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
-
-window.onload = function() {
-  document.querySelector("#btn").addEventListener("click", () => {
-    document.querySelector("#card").innerHTML = generateRandomNumber();
-  });
-  console.log();
+var suits, numbers, suitsBottom, i;
+var card = {
+  suits: ["&#9830", "&#9829", "&#9824", "&#9827"],
+  suitsBottom: ["&#9830", "&#9829", "&#9824", "&#9827"],
+  numbers: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 };
 
-let generateRandomNumber = () => {
-  let numbers = [
-    "A",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "J",
-    "Q",
-    "K"
-  ];
-  let suit = ["♦", "♥", "♠", "♣"];
+function pullNumber() {
+  var theNumber = Math.floor(Math.random() * card.numbers.length);
+  document.getElementById("randomNumber").innerHTML = card.numbers[theNumber];
+}
 
-  let indexnumbers = Math.floor(Math.random() * numbers.length);
-  let indexsuit = Math.floor(Math.random() * suit.length);
-  return suit[indexsuit] + numbers[indexnumbers] + suit[indexsuit];
+function pullBothSuits() {
+  var allSuits = Math.floor(Math.random() * card.suits.length);
+  document.getElementById("topSuit").innerHTML = card.suits[allSuits];
+  document.getElementById("bottomSuit").innerHTML = card.suits[allSuits];
+
+  if (card.suits[allSuits] === "&#9830" || card.suits[allSuits] === "&#9829") {
+    document.getElementById("theCard").classList.add("redSuit");
+  } else if (
+    card.suits[allSuits] === "&#9827" ||
+    card.suits[allSuits] === "&#9824"
+  ) {
+    document.getElementById("theCard").classList.remove("redSuit");
+  }
+}
+
+window.wholeCard = function() {
+  pullNumber();
+  pullBothSuits();
 };
